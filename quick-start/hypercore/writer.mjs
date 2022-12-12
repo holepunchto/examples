@@ -6,7 +6,7 @@ import b4a from 'b4a'
 const swarm = new Hyperswarm()
 const core = new Hypercore('./writer-storage')
 
-// core.key and core.discoveryKey will only be set after ready resolves
+// core.key and core.discoveryKey will only be set after core.ready resolves
 await core.ready()
 console.log('hypercore key:', b4a.toString(core.key, 'hex'))
 
