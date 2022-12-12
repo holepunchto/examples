@@ -10,15 +10,23 @@ const swarm = new Hyperswarm()
 swarm.on('connection', conn => store.replicate(conn))
 
 const core = store.get({ key: b4a.from(process.argv[2], 'hex') })
-const bee = new Hyperbee(core)
+const bee = new Hyperbee(core, {
+  keyEncoding: 'utf-8',
+  valueEncoding: 'utf-8'
+})
 
 await core.ready()
-const foundPeers = store.findingPeers()
-swarm.join(core.discoveryKey)
-swarm.flush().then(() => foundPeers())
+console.log('core key here is:', core.key.toString('hex'))
 
+// Attempt to connect to peers
+swarm.join(core.discoveryKey)
+
+// Do a single Hyperbee.get for every line of stdin data
+// Each `get` will only download the blocks necessary to satisfy the query
 process.stdin.on('data', data => {
-  bee.get(data).then(node => {
+  const word = b4a.toString(data).trim()
+  if (!word.length) return
+  bee.get(word).then(node => {
     if (!node || !node.value) console.log(`No dictionary entry for ${data}`)
     else console.log(`${data} -> ${node.value}`)
   }, err => console.error(err))

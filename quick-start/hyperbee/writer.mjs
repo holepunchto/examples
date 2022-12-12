@@ -13,7 +13,10 @@ const swarm = new Hyperswarm()
 swarm.on('connection', conn => store.replicate(conn))
 
 const core = store.get({ name: 'my-bee-core' })
-const bee = new Hyperbee(core)
+const bee = new Hyperbee(core, {
+  keyEncoding: 'utf-8',
+  valueEncoding: 'utf-8'
+})
 
 await core.ready()
 const discovery = swarm.join(core.discoveryKey)
@@ -30,9 +33,7 @@ if (core.length <= 1) {
   for (const { key, value } of dict) {
     await batch.put(key, value)
   }
-  console.log('flushing batch')
   await batch.flush()
-  console.log('finished importing dictionary. seeding...')
 } else {
   // Otherwise just seed the previously-imported dictionary
   console.log('seeding dictionary...')
