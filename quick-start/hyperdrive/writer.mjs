@@ -34,7 +34,8 @@ process.stdin.on('data', (d) => {
 })
 
 async function mirrorDrive () {
+  console.log('started mirroring changes from \'./writer-dir\' into the drive...')
   const mirror = local.mirror(drive)
   await mirror.done()
-  console.log('finished mirroring drive:', mirror.count)
+  console.log('finished mirroring:', mirror.count)
 }
