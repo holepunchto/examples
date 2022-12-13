@@ -21,13 +21,14 @@
   },
   "homepage": "https://github.com/holepunchto/quick-start#readme",
   "dependencies": {
-    "@hyperswarm/dht": "github:hyperswarm/dht",
     "b4a": "^1.6.1",
     "corestore": "^6.4.0",
+    "debounceify": "^1.0.0",
     "graceful-goodbye": "^1.1.0",
     "hyperbee": "^2.2.0",
     "hypercore": "^10.5.3",
     "hyperdrive": "^11.0.0-alpha.9",
-    "hyperswarm": "^4.3.5"
+    "hyperswarm": "^4.3.5",
+    "localdrive": "github:holepunchto/localdrive"
   }
 }

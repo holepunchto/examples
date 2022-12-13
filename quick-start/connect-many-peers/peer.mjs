@@ -4,6 +4,7 @@ import crypto from 'hypercore-crypto'
 import b4a from 'b4a'
 
 const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
 
 // Keep track of all connections and console.log incoming data
 const conns = []
@@ -30,5 +31,3 @@ const discovery = swarm.join(topic, { client: true, server: true })
 discovery.flushed().then(() => {
   console.log('joined topic:', b4a.toString(topic, 'hex'))
 })
-
-goodbye(() => swarm.destroy())

@@ -4,6 +4,8 @@ import goodbye from 'graceful-goodbye'
 import b4a from 'b4a'
 
 const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
+
 const core = new Hypercore('./writer-storage')
 
 // core.key and core.discoveryKey will only be set after core.ready resolves
@@ -17,5 +19,3 @@ process.stdin.on('data', data => core.append(data))
 // It's only used to discover other peers who *might* have the core
 swarm.join(core.discoveryKey)
 swarm.on('connection', conn => core.replicate(conn))
-
-goodbye(() => swarm.destroy())

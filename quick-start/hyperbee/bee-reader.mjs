@@ -7,6 +7,7 @@ import b4a from 'b4a'
 const store = new Corestore('./reader-storage')
 
 const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
 swarm.on('connection', conn => store.replicate(conn))
 
 const core = store.get({ key: b4a.from(process.argv[2], 'hex') })
@@ -31,5 +32,3 @@ process.stdin.on('data', data => {
     else console.log(`${data} -> ${node.value}`)
   }, err => console.error(err))
 })
-
-goodbye(() => swarm.destroy())

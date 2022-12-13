@@ -10,6 +10,7 @@ import b4a from 'b4a'
 const store = new Corestore('./writer-storage')
 
 const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
 swarm.on('connection', conn => store.replicate(conn))
 
 const core = store.get({ name: 'my-bee-core' })
@@ -38,8 +39,6 @@ if (core.length <= 1) {
   // Otherwise just seed the previously-imported dictionary
   console.log('seeding dictionary...')
 }
-
-goodbye(() => swarm.destroy())
 
 async function loadDictionary() {
   const compressed = await fs.promises.readFile('./dict.json.gz')

@@ -4,8 +4,9 @@ import goodbye from 'graceful-goodbye'
 import b4a from 'b4a'
 
 const store = new Corestore('./reader-storage')
-const swarm = new Hyperswarm()
 
+const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
 swarm.on('connection', conn => store.replicate(conn))
 
 const core = store.get({ key: b4a.from(process.argv[2], 'hex'), valueEncoding: 'json' })
@@ -31,5 +32,3 @@ for (const key of otherKeys) {
     })
   })
 }
-
-goodbye(() => swarm.destroy())

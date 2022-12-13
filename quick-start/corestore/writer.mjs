@@ -5,6 +5,7 @@ import b4a from 'b4a'
 
 const store = new Corestore('./writer-storage')
 const swarm = new Hyperswarm()
+goodbye(() => swarm.destroy())
 
 // A name is a purely-local, and maps to a key pair. It's not visible to readers.
 // Since a name always corresponds to a key pair, you must own any core you load by name
@@ -41,5 +42,3 @@ process.stdin.on('data', data => {
     core3.append(data)
   }
 })
-
-goodbye(() => swarm.destroy())

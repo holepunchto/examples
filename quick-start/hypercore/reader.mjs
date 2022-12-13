@@ -3,8 +3,9 @@ import Hypercore from 'hypercore'
 import goodbye from 'graceful-goodbye'
 
 const swarm = new Hyperswarm()
-const core = new Hypercore('./reader-storage', process.argv[2])
+goodbye(() => swarm.destroy())
 
+const core = new Hypercore('./reader-storage', process.argv[2])
 await core.ready()
 
 const foundPeers = core.findingPeers()
@@ -25,4 +26,3 @@ for await (const block of core.createReadStream({ start: core.length, live: true
   console.log(`Block ${position++}: ${block}`)
 }
 
-goodbye(() => swarm.destroy())
