@@ -24,8 +24,9 @@ swarm.join(core.discoveryKey)
 
 // Do a single Hyperbee.get for every line of stdin data
 // Each `get` will only download the blocks necessary to satisfy the query
+process.stdin.setEncoding('utf-8')
 process.stdin.on('data', data => {
-  const word = b4a.toString(data).trim()
+  const word = data.trim()
   if (!word.length) return
   bee.get(word).then(node => {
     if (!node || !node.value) console.log(`No dictionary entry for ${data}`)
