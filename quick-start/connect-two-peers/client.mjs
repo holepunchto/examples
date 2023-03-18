@@ -1,4 +1,4 @@
-import DHT from '@hyperswarm/dht'
+import DHT from 'hyperdht'
 import b4a from 'b4a'
 
 console.log('Connecting to:', process.argv[2])
