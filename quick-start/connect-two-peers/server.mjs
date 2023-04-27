@@ -1,4 +1,4 @@
-import DHT from '@hyperswarm/dht'
+import DHT from 'hyperdht'
 import goodbye from 'graceful-goodbye'
 import b4a from 'b4a'
 
