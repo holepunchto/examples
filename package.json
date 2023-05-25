@@ -28,7 +28,7 @@
     "hyperbee": "^2.2.0",
     "hypercore": "^10.5.3",
     "hyperdht": "^6.5.2",
-    "hyperdrive": "^11.0.0-alpha.9",
+    "hyperdrive": "^11.0.1",
     "hyperswarm": "^4.3.5",
     "localdrive": "^1.5.0"
   }
