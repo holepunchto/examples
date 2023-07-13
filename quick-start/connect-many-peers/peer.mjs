@@ -12,8 +12,14 @@ swarm.on('connection', conn => {
   const name = b4a.toString(conn.remotePublicKey, 'hex')
   console.log('* got a connection from:', name, '*')
   conns.push(conn)
+
   conn.once('close', () => conns.splice(conns.indexOf(conn), 1))
   conn.on('data', data => console.log(`${name}: ${data}`))
+
+  // Connection errors (such as timeouts) can occur and are no big deal:
+  // the connection will simply close. Note that without an error listener,
+  // the app will crash, which is almost always undesired.
+  conn.on('error', (e) => console.log(`Connection with ${name} threw ${e}`))
 })
 
 // Broadcast stdin to all connections
